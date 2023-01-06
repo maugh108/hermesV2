@@ -1,35 +1,17 @@
-const User = require('./User');
-const Post = require('./Post');
-const Comment = require('./Comment');
+const Driver = require('./Conductor');
+const Truck = require('./Unidad');
+const Route = require('./Ruta');
 
-// users can make many posts 
-User.hasMany(Post, {
-    foreignKey: 'user_id'
+Driver.hasOne(Route, {
+    foreignKey: 'driver_id'
 }); 
 
-// a post can only belong to one user 
-Post.belongsTo(User, {
-    foreignKey: 'user_id'
+Route.belongsTo(Driver, {
+    foreignKey: 'driver_id'
 })
 
-// a comment can only belong to one user 
-Comment.belongsTo(User, {
-    foreignKey: 'user_id'
+Route.belongsTo(Truck, {
+    foreignKey: 'truck_id'
 });
 
-// a comment can only belong to one user 
-Comment.belongsTo(Post, {
-    foreignKey: 'post_id'
-});
-
-// users can make many comments 
-User.hasMany(Comment, {
-    foreignKey: 'user_id'
-});
-
-// users can make many posts 
-Post.hasMany(Comment, {
-    foreignKey: 'post_id'
-});
-
-module.exports = { User, Post, Comment };
+module.exports = { Driver, Truck, Route };

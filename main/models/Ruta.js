@@ -1,9 +1,9 @@
 const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../config/connection');
 
-class Comment extends Model {}
+class Ruta extends Model {}
 
-Comment.init(
+Ruta.init(
   {
     id: {
         type: DataTypes.INTEGER,
@@ -11,36 +11,47 @@ Comment.init(
         allowNull: false,
         autoIncrement: true
     },
-    comment_text: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        validate: {
-            len:[1]
-        }
-    },
-    user_id: {
+
+    driver_id: {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
-            model: 'user',
+            model: 'conductor',
             key: 'id'
             }
     },
-    post_id: {
+
+    truck_id: {
     type: DataTypes.INTEGER,
     allowNull: false,
     references: {
-        model: 'post',
+        model: 'unidad',
         key: 'id'
         }
-    }
+    },
+
+    source: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+          len:[4]
+      }
+    },
+  
+    destination: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+          len:[4]
+      }
+  }
   },
   {
     sequelize,
     freezeTableName: true,
     underscored: true,
-    modelName: 'comment'
+    modelName: 'ruta'
   }
 );
 
-module.exports = Comment;
+module.exports = Ruta;
