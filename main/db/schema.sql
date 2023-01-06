@@ -1,0 +1,3 @@
+DROP DATABASE IF EXISTS hermes_db;
+
+CREATE DATABASE hermes_db;
