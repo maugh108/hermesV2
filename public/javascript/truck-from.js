@@ -12,7 +12,7 @@ async function truckFormHandler(e) {
         const response = await fetch('/api/trucks', { 
             method:'post',
             body: JSON.stringify({
-                make, // = {make: make}
+                make, 
                 model,
                 year, 
                 vin,

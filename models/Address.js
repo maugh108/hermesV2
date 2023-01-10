@@ -19,8 +19,11 @@ Address.init(
             }
         },
         zipcode:{
-            type:DataTypes.INTEGER,
+            type:DataTypes.STRING,
             allowNull:false,
+            validate:{
+                len:[1]
+            }
         },
         col:{
             type:DataTypes.STRING,
