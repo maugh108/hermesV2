@@ -19,5 +19,13 @@ async function loginFormHandler(e) {
       }
     }*/
 }
-
+function Editar(id){
+  console.log(id)
+}
+function Borrar(id){
+  console.log(`borrar ${id}`)
+}
+function Create(){
+  document.location.replace('/crear-orden');
+}
 document.querySelector('.login-form').addEventListener('submit', loginFormHandler);

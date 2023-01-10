@@ -4,8 +4,20 @@ const Truck = require('./Truck')
 const Trailer = require('./Trailer')
 const Order = require('./Order')
 
-Driver.hasMany(Order, {
-    foreignKey: 'driver'
-}); 
+Order.hasOne(Driver, { 
+    foreignKey: 'id',
+})
+
+Order.hasOne(Truck, { 
+    foreignKey: 'id',
+})
+
+Order.hasOne(Trailer, { 
+    foreignKey: 'id',
+})
+
+
+
+
 
 module.exports = { Driver, Address, Order, Trailer, Truck };
