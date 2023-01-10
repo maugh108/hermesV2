@@ -1,27 +1,32 @@
-const { Post, User, Comment } = require('../models');
+const { Driver, Address, Order, Trailer, Truck } = require('../models');
 const router = require('express').Router();
 const sequelize = require('../config/connection');
 
 router.get('/', (req, res) => {
-    Post.findAll({
+    Driver.findAll({
         attributes: [
           'id',
-          'post_text',
-          'title',
-          'created_at'
+          'name',
+          'birthday',
+          'license',
+          'city',
+          'expiration',
+          'usermame',
+          'password',
+          'phone'
         ],
         include: [
           {
-            model: Comment,
-            attributes: ['id', 'comment_text', 'post_id', 'user_id', 'created_at'],
+            model: Order,
+            attributes: ['id', 'driver', 'pickup', 'delivery', 'truck', '',],
             include: {
-              model: User,
-              attributes: ['username']
+              model: Driver,
+              attributes: ['name']
             }
           },
           {
-            model: User,
-            attributes: ['username']
+            model: Driver,
+            attributes: ['name']
           }
         ]
       })
@@ -52,47 +57,5 @@ router.get('/trailer', (req, res) => {
   res.render('trailer');
 });
 
-
-router.get('/post/:id', (req, res) => {
-    Post.findOne({
-      where: {
-        id: req.params.id
-      },
-      attributes: [
-        'id',
-        'post_text',
-        'title',
-        'created_at'
-      ],
-      include: [
-        {
-          model: Comment,
-          attributes: ['id', 'comment_text', 'post_id', 'user_id', 'created_at'],
-          include: {
-            model: User,
-            attributes: ['username']
-          }
-        },
-        {
-          model: User,
-          attributes: ['username']
-        }
-      ]
-    })
-      .then(dbPostData => {
-        if (!dbPostData) {
-          res.status(404).json({ message: 'No post found with this id' });
-          return;
-        }
-  
-        const post = dbPostData.get({ plain: true });
-  
-        res.render('single-post', { post, loggedIn: req.session.loggedIn});
-      })
-      .catch(err => {
-        console.log(err);
-        res.status(500).json(err);
-      });
-  });
 
 module.exports = router;
