@@ -1,8 +1,6 @@
 const router = require('express').Router();
 const { Driver, Post, Comment } = require('../../models');
 
-
-// CREATE new driver 
 router.post('/', (req, res) => {
     Driver.create({
         name: req.body.name,
@@ -14,10 +12,10 @@ router.post('/', (req, res) => {
         password: req.body.password,
         phone: req.body.phone
     })
-    // store user data during session 
+
     .then(dbUserData => {
     req.session.save(() => {
-        // Make user login
+
         req.session.user_id = dbUserData.id;
         req.session.username = dbUserData.username;
         req.session.loggedIn = true;
