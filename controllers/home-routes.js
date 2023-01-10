@@ -52,5 +52,26 @@ router.get('/trailer', (req, res) => {
   res.render('trailer');
 });
 
+router.get('/crear-orden', async(req, res) => {
+  const drivers = await Driver.findAll({})
+    .then(dbPostData => {
+      const drivers = dbPostData.map(driver => driver.get({ plain: true }));
+      return drivers 
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json(err);
+    });
+
+  const trucks = await Truck.findAll({})
+  .then(res=>{
+    return res.map(truck => truck.get({plain:true}))
+  })  
+  const trailer = await Trailer.findAll({})
+  .then(res=>{
+    return res.map(trailer => trailer.get({plain:true}))
+  })  
+    res.render('createorder', { drivers, trucks, trailer, loggedIn: req.session.loggedIn });  
+  });
 
 module.exports = router;
