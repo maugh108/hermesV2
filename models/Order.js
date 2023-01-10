@@ -11,7 +11,7 @@ Order.init(
         allowNull: false,
         autoIncrement: true
     },
-    driver: {
+    driver_id: {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
@@ -19,7 +19,7 @@ Order.init(
             key: 'id'
         }
     },
-    pickup: {
+    pickup_id: {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
@@ -27,7 +27,7 @@ Order.init(
             key: 'id'
         }
     },
-    delivery: {
+    delivery_id: {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
@@ -35,7 +35,7 @@ Order.init(
             key: 'id'
         }
     },
-    truck: {
+    truck_id: {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
@@ -43,7 +43,7 @@ Order.init(
             key: 'id'
         }
     },
-    trailer: {
+    trailer_id: {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {

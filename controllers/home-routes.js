@@ -1,40 +1,37 @@
-const { Post, User, Comment } = require('../models');
+const { Driver, Address, Order, Trailer, Truck } = require('../models');
 const router = require('express').Router();
 const sequelize = require('../config/connection');
 
 router.get('/', (req, res) => {
-    Post.findAll({
-        attributes: [
-          'id',
-          'post_text',
-          'title',
-          'created_at'
-        ],
-        include: [
-          {
-            model: Comment,
-            attributes: ['id', 'comment_text', 'post_id', 'user_id', 'created_at'],
-            include: {
-              model: User,
-              attributes: ['username']
-            }
-          },
-          {
-            model: User,
-            attributes: ['username']
-          }
-        ]
-      })
-        .then(dbPostData => {
-        
-          const posts = dbPostData.map(post => post.get({ plain: true }));
-          res.render('dashboard', { posts, loggedIn: req.session.loggedIn });
-        })
-        .catch(err => {
-          console.log(err);
-          res.status(500).json(err);
-        });
+    Order.findAll({
+      attributes: [
+        'id'
+      ],
+      include: [
+        {
+          model: Driver,
+          attributes: ['id', 'name', 'birthday', 'license', 'city', 'phone']
+        },
+        {
+          model: Truck,
+          attributes: ['id', 'make', 'model', 'year', 'vin', 'plate']
+        },
+        {
+          model: Trailer,
+          attributes:['id', 'make', 'year', 'vin', 'plate']
+        }
+      ]
+    })
+    .then(dbPostData => {
+      console.log(dbPostData)
+      const orders = dbPostData.map(order => order.get({ plain: true }));
+      res.render('dashboard', { orders, loggedIn: req.session.loggedIn });
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json(err);
     });
+});
 
 router.get('/login', (req, res) => {
     if(req.session.loggedIn) {
@@ -48,51 +45,12 @@ router.get('/signup', (req, res) => {
     res.render('signup');
 });
 
+router.get('/crear-orden', (req, res) => {
+  res.render('createorder');
+});
 router.get('/trailer', (req, res) => {
   res.render('trailer');
 });
 
-
-router.get('/post/:id', (req, res) => {
-    Post.findOne({
-      where: {
-        id: req.params.id
-      },
-      attributes: [
-        'id',
-        'post_text',
-        'title',
-        'created_at'
-      ],
-      include: [
-        {
-          model: Comment,
-          attributes: ['id', 'comment_text', 'post_id', 'user_id', 'created_at'],
-          include: {
-            model: User,
-            attributes: ['username']
-          }
-        },
-        {
-          model: User,
-          attributes: ['username']
-        }
-      ]
-    })
-      .then(dbPostData => {
-        if (!dbPostData) {
-          res.status(404).json({ message: 'No post found with this id' });
-          return;
-        }
-  
-        const post = dbPostData.get({ plain: true });
-  
-        res.render('single-post', { post, loggedIn: req.session.loggedIn});
-      })
-      .catch(err => {
-        console.log(err);
-        res.status(500).json(err);
-      });
-  });
 
 module.exports = router;
