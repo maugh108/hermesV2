@@ -40,7 +40,7 @@ Trailer.init(
             }
         },
         number:{
-            type:DataTypes.INTEGER,
+            type:DataTypes.BIGINT,
             allowNull:false,
             validate:{
                 len:[1]
