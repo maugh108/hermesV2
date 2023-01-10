@@ -7,7 +7,9 @@ Hermes logistics V 2.01
 
 Este sistema en su version 2.01 nos permite desplegar la infomacion de una orden de trabajo conla infomacion de Conductor, camion y numero de trailer.
 
-En la pantalla principal podemos ver la informacion de una Orden que lleva la informacion de cada una 
+En la pantalla principal llamada Dashboard podemos ver la informacion de una Orden que lleva la informacion de cada una como lo es Nombre del conductor 
+
+
 
 ## Contribuyentes 🖇️
 
