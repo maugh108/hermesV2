@@ -1,7 +1,11 @@
 const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../config/connection');
-
-class Driver extends Model {}
+const bcrypt = require('bcrypt')
+class Driver extends Model {
+    checkPassword(loginPW) {
+        return bcrypt.compareSync(loginPW, this.password);
+    }
+}
 
 Driver.init(
     {
@@ -66,6 +70,16 @@ Driver.init(
         },
     },
     {
+        hooks:{
+            async beforeCreate(newUserData){
+                newUserData.password = await bcrypt.hash(newUserData.password, 10)
+                return newUserData
+            },
+            async beforeUpdate(newUserData){
+                newUserData.password = await bcrypt.hash(newUserData.password, 10)
+                return newUserData
+            }
+        },
         sequelize,
         freezeTableName:true,
         underscored:true,

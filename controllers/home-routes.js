@@ -45,13 +45,6 @@ router.get('/signup', (req, res) => {
     res.render('signup');
 });
 
-router.get('/crear-orden', (req, res) => {
-  res.render('createorder');
-});
-router.get('/trailer', (req, res) => {
-  res.render('trailer');
-});
-
 router.get('/crear-orden', async(req, res) => {
   const drivers = await Driver.findAll({})
     .then(dbPostData => {
@@ -73,5 +66,11 @@ router.get('/crear-orden', async(req, res) => {
   })  
     res.render('createorder', { drivers, trucks, trailer, loggedIn: req.session.loggedIn });  
   });
+  
+  
+router.get('/trailer', (req, res) => {
+  res.render('trailer');
+});
+
 
 module.exports = router;
