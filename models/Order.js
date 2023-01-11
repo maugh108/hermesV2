@@ -19,22 +19,6 @@ Order.init(
             key: 'id'
         }
     },
-    pickup_id: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        references: {
-            model: 'address',
-            key: 'id'
-        }
-    },
-    delivery_id: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        references: {
-            model: 'address',
-            key: 'id'
-        }
-    },
     truck_id: {
         type: DataTypes.INTEGER,
         allowNull: false,

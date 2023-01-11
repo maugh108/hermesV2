@@ -23,7 +23,7 @@ Truck.init(
             allowNull:false,
         },
         year:{
-            type:DataTypes.DATEONLY,
+            type:DataTypes.INTEGER,
             allowNull:false,
             validate:{
                 len:[1]

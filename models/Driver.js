@@ -23,7 +23,7 @@ Driver.init(
             }
         },
         birthday:{
-            type:DataTypes.DATE,
+            type:DataTypes.STRING,
             allowNull:false,
         },
         license:{
