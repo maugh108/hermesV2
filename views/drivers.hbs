@@ -24,11 +24,11 @@
             <table class="table table-dark">
                 <thead>
                     <tr>
-                    <th scope="col">Orden Id</th>
-                    <th scope="col">Conductor</th>
-                    <th scope="col">Teléfono</th>
-                    <th scope="col">Camión</th>
-                    <th scope="col">Trailer</th>
+                    <th scope="col">Id</th>
+                    <th scope="col">Driver name</th>
+                    <th scope="col">Driver License</th>
+                    <th scope="col">Driver City</th>
+                    <th scope="col">Driver Phone</th>
                     <th scope="col"></th>
                     </tr>
                 </thead>
@@ -37,9 +37,9 @@
                     <tr>
                         <td scope="row">{{id}}</th>
                         <td>{{driver.name}}</td>
+                        <td>{{driver.license}}</td>
+                        <td>{{driver.city}}</td>
                         <td>{{driver.phone}}</td>
-                        <td>{{truck.vin}}</td>
-                        <td>{{trailer.vin}}</td>
                         <td>
                             <button type="button" class="btn btn-primary" id="{{driver.id}}" onclick="Editar({{driver.id}})">Editar</button>
                             <button type="button" class="btn btn-danger" onclick="Borrar({{driver.id}})">Borrar</button>
