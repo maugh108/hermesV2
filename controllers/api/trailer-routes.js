@@ -1,8 +1,8 @@
 const router = require('express').Router();
-const { Trailer} = require('../../models');
+const { Trailer } = require('../../models');
 
 router.post('/', (req,res)=>{
-    Truck.create({
+    Trailer.create({
         make: req.body.make,
         year: req.body.year,
         vin: req.body.vin,
@@ -15,8 +15,22 @@ router.post('/', (req,res)=>{
     .catch(e=> console.log(e))
 })
 
+router.get('/', (req, res) => {
+    Trailer.findAll({
+    })
+    .then(dbPostData => {
+      console.log(dbPostData)
+      const orders = dbPostData.map(order => order.get({ plain: true }));
+      res.render('trailerform', { orders, loggedIn: req.session.loggedIn });
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json(err);
+    });
+});
+
 router.get('/trailer', (req, res) => {
-    res.render('trailerForm');
+    res.render('trailerform');
   });
 
 

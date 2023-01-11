@@ -1,4 +1,4 @@
-const { Driver, Address, Order, Trailer, Truck } = require('../models');
+const { Driver, Order, Trailer, Truck } = require('../models');
 const router = require('express').Router();
 const sequelize = require('../config/connection');
 
@@ -66,11 +66,5 @@ router.get('/crear-orden', async(req, res) => {
   })  
     res.render('createorder', { drivers, trucks, trailer, loggedIn: req.session.loggedIn });  
   });
-  
-  
-router.get('/trailer', (req, res) => {
-  res.render('trailer');
-});
-
 
 module.exports = router;

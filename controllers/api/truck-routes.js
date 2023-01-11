@@ -16,7 +16,20 @@ router.post('/', (req,res)=>{
     .catch(e=> console.log(e))
 })
 
-// rendering sign up page 
+router.get('/', (req, res) => {
+    Truck.findAll({
+    })
+    .then(dbPostData => {
+      console.log(dbPostData)
+      const orders = dbPostData.map(order => order.get({ plain: true }));
+      res.render('truckForm', { orders, loggedIn: req.session.loggedIn });
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json(err);
+    });
+});
+
 router.get('/form', (req, res) => {
     res.render('truckForm');
   });
