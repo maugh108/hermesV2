@@ -20,6 +20,7 @@ async function trailerFormHandler(e) {
             headers: {'Content-Type': 'application/json'}
         });
         if(response.ok){
+            document.location.replace('/');
         }else{
             alert(response.statusText);
         }

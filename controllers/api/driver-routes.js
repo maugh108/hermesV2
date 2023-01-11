@@ -67,4 +67,35 @@ router.post('/logout', (req, res) => {
     }
 });
 
+router.get('/driver', async(req, res) => {
+    const drivers = await Driver.findAll({})
+    .then(dbPostData => {
+      const drivers = dbPostData.map(driver => driver.get({ plain: true }));
+      return drivers 
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json(err);
+    });
+    res.render('drivers', { drivers, loggedIn: req.session.loggedIn });  
+});
+
+router.get('/:id', async(req, res) => {
+    const drivers = await Driver.findOne({
+        where: {
+            id: req.params.id
+        }
+    })
+    .then(dbPostData => {
+      const drivers = dbPostData.get({plain: true})
+      res.render('signup') 
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json(err);
+    });
+   
+    //res.render('signup', { drivers, loggedIn: req.session.loggedIn });  
+});
+
 module.exports = router;
