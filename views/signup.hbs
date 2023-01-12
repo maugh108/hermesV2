@@ -1,25 +1,26 @@
 <form class="signup-form">
 
   <div class="container">
+    {{#if driver}}
+      <input type="text" name="id" hidden value="{{driver.id}}">
+    {{/if}}
+    <input type="text" name="name" placeholder="Ingresa tu nombre" required value="{{driver.name}}">
 
-   
-    <input type="text" name="name" placeholder="Ingresa tu nombre" required>
+    <input type="date" name="birthday" placeholder="Fecha de nacimiento" required value="{{driver.birthday}}">
 
-    <input type="date" name="birthday" placeholder="Fecha de nacimiento" required>
+    <input type="text" name="license" placeholder="Licencia" required  value="{{driver.license}}">
 
-    <input type="text" name="license" placeholder="Licencia" required>
+    <input type="number" name="phone" placeholder="Telefono" required value="{{driver.phone}}">
 
-    <input type="number" name="phone" placeholder="Telefono" required>
+    <input type="text" name="city" placeholder="Ciudad" name="city" required value="{{driver.city}}">
 
-    <input type="text" name="city" placeholder="Ciudad" name="city" required>
+    <input type="text" name="expiration" placeholder="Expiracion"  required value="{{driver.expiration}}">
 
-    <input type="text" name="expiration" placeholder="Expiracion"  required>
-
-    <input type="text" name="username" placeholder="Enter Username" required>
+    <input type="text" name="username" placeholder="Enter Username" required value="{{driver.username}}">
 
     <input type="password" name="password" placeholder="Enter Password" required>
 
-    <button class="sign-btn" type="submit">Login</button>
+    <button class="sign-btn" type="submit">{{#if driver}} Actualizar {{else}} Crear {{/if}} </button>
   </div>
 
   <div class="container" style="background-color:#f1f1f1">
@@ -101,10 +102,4 @@ span.psw {
     width: 100%;
   }
 }
-
-.dasljkhdas{
-
-  dsijandijuasdn
-}
 </style>
-

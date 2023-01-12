@@ -1,13 +1,13 @@
-function CreateDriver() {
-    document.location.replace('/signup');
+function CreateNewTrailer() {
+    document.location.replace('/api/trailers/create-trailer');
 }
 
-async function UpdateDriver(id) {
-    document.location.replace(`/api/drivers/${id}`);
+async function UpdateTrailer(id) {
+    document.location.replace(`/api/trailers/${id}`);
 }
 
-async function DeleteDriver(id) {
-    const response = await fetch(`/api/drivers/delete/${id}`, {
+async function DeleteTrailer(id) {
+    const response = await fetch(`/api/trailers/delete/${id}`, {
         method: 'DELETE',
         body: JSON.stringify({
           id: id

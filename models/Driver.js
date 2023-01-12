@@ -6,7 +6,6 @@ class Driver extends Model {
         return bcrypt.compareSync(loginPW, this.password);
     }
 }
-
 Driver.init(
     {
         id: {

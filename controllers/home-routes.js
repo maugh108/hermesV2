@@ -2,35 +2,29 @@ const { Driver, Order, Trailer, Truck } = require('../models');
 const router = require('express').Router();
 const sequelize = require('../config/connection');
 
-router.get('/', (req, res) => {
-    Order.findAll({
-      attributes: [
-        'id'
-      ],
-      include: [
-        {
-          model: Driver,
-          attributes: ['id', 'name', 'birthday', 'license', 'city', 'phone']
-        },
-        {
-          model: Truck,
-          attributes: ['id', 'make', 'model', 'year', 'vin', 'plate']
-        },
-        {
-          model: Trailer,
-          attributes:['id', 'make', 'year', 'vin', 'plate']
-        }
-      ]
-    })
+router.get('/', async (req, res) => {
+    const orders = await Order.findAll({})
     .then(dbPostData => {
-      console.log(dbPostData)
       const orders = dbPostData.map(order => order.get({ plain: true }));
-      res.render('dashboard', { orders, loggedIn: req.session.loggedIn });
+      return orders 
+      
     })
     .catch(err => {
       console.log(err);
       res.status(500).json(err);
     });
+    for(let i =0; i< orders.length; i++){
+      const driverId = orders[i].driver_id
+      const truckId = orders[i].truck_id
+      const trailerId = orders[i].trailer_id
+      const driver = await Driver.findOne({where: {id:driverId}})
+      const truck = await Truck.findOne({where: {id:truckId}})
+      const trailer = await Trailer.findOne({where: {id:trailerId}})
+      orders[i].driver = driver.get({plain:true})
+      orders[i].truck = truck.get({plain:true})
+      orders[i].trailer = trailer.get({plain:true})
+    }
+    res.render('dashboard', { orders, loggedIn: req.session.loggedIn });
 });
 
 router.get('/login', (req, res) => {

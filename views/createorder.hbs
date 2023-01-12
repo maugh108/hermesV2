@@ -1,28 +1,45 @@
 <form class="order-form">
 
   <div class="container">
-
+    {{#if order}}
+    <input type="text" name="id" hidden value="{{order.id}}">
+    {{/if}}
     <select name="driver" id="">
-        <option selected default>Selecciona el driver</option>
+        {{#if order.driver}}
+        <option selected disabled  value="{{order.driver.id}}">{{order.driver.name}}</option>
+        {{else}}
+         <option selected default>Selecciona el driver</option>
+        {{/if}}
+       
         {{#each drivers as |driver|}}
         <option value="{{id}}">{{name}}</option>
         {{/each}}
     </select>
 
     <select name="truck" id="">
-        <option selected default>Selecciona el camion</option>
+        {{#if order.truck}}
+        <option selected disabled  value="{{order.truck.id}}">Fabricante: {{order.truck.make}} Modelo: {{order.truck.model}} #{{order.truck.number}}</option>
+        {{else}}
+         <option selected default>Selecciona el camion</option>
+        {{/if}}
+        
         {{#each trucks as |truck|}}
         <option value="{{id}}">Fabricante: {{make}} Modelo: {{model}} #{{number}}</option>
         {{/each}}
     </select>
 
     <select name="trailer" id="">
+        {{#if order.trailer}}
+        <option selected disabled  value="{{order.trailer.id}}">Trailer # {{order.trailer.number}}</option>
+        {{else}}
         <option selected default>Selecciona el trailer</option>
+        {{/if}}
+        
         {{#each trailer as |trailer|}}
         <option value="{{id}}">Trailer #{{number}}</option>
         {{/each}}
     </select>
-    <button class="sign-btn" type="submit">Crear Orden</button>
+    <button class="sign-btn" type="submit">{{#if order}} Actualizar orden {{else}} Crear Orden {{/if}}</button>
   </div>
 
   <div class="container" style="background-color:#f1f1f1">

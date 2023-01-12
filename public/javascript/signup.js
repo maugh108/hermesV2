@@ -1,6 +1,6 @@
 async function signupFormHandler(e) {
     e.preventDefault();
-
+    const id = e.target.id ? e.target.id.value : null
     const name = e.target.name.value
     const birthday = e.target.birthday.value
     const license = e.target.license.value
@@ -9,11 +9,11 @@ async function signupFormHandler(e) {
     const username = e.target.username.value
     const password = e.target.password.value
     const phone = e.target.phone.value
-    
     if (name && username && password && birthday && license && city && expiration && phone) {
         const response = await fetch('/api/drivers', {
           method: 'post',
           body: JSON.stringify({
+            id,
             name,
             username,
             password,

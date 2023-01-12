@@ -2,31 +2,55 @@ const router = require('express').Router();
 const { Driver } = require('../../models');
 
 router.post('/', (req, res) => {
-    Driver.create({
-        name: req.body.name,
-        birthday: req.body.birthday,
-        license: req.body.license,
-        city: req.body.city,
-        expiration: req.body.expiration,
-        username: req.body.username,
-        password: req.body.password,
-        phone: req.body.phone
-    })
-
-    .then(dbUserData => {
-    req.session.save(() => {
-
-        req.session.user_id = dbUserData.id;
-        req.session.username = dbUserData.username;
-        req.session.loggedIn = true;
-
-        res.json(dbUserData);
-        });
-    })
-    .catch(e=> console.log(e))
+    if(req.body.id){
+        Driver.update(req.body, {
+            where: {
+                id: req.body.id
+            }
+        }
+        )
+        .then(dbUserData => {
+        req.session.save(() => {
+            req.session.user_id = dbUserData.id;
+            req.session.username = dbUserData.username;
+            req.session.loggedIn = true;
+            res.json(dbUserData);
+            });
+        })
+        .catch(e=> console.log(e))
+    }else{
+        Driver.create(req.body)
+        .then(dbUserData => {
+        req.session.save(() => {
+    
+            req.session.user_id = dbUserData.id;
+            req.session.username = dbUserData.username;
+            req.session.loggedIn = true;
+    
+            res.json(dbUserData);
+            });
+        })
+        .catch(e=> console.log(e))
+    }
+   
     
 });
-
+router.delete('/delete/:id', (req,res)=>{
+    Driver.destroy({
+      where: {
+          id: req.params.id 
+      }
+    }).then(dbPostData => {
+        if (!dbPostData) {
+            res.status(404).json({ message: 'No comment found with this id' });
+            return;
+        }
+        res.status(200).json(dbPostData);
+    }).catch(err => {
+        console.log(err);
+        res.status(500).json(err);
+    });
+  })
 router.post('/login', (req, res) => {
     // expects {email: 'lernantino@gmail.com', password: 'password1234'}
     Driver.findOne({
@@ -40,7 +64,6 @@ router.post('/login', (req, res) => {
         }
         // res.json({ user: dbUserData});
         // verify user
-        console.log(dbUserData)
         const validPassword = dbUserData.checkPassword(req.body.password);
 
         if (!validPassword) {
@@ -81,21 +104,20 @@ router.get('/driver', async(req, res) => {
 });
 
 router.get('/:id', async(req, res) => {
-    const drivers = await Driver.findOne({
+    const driver = await Driver.findOne({
         where: {
             id: req.params.id
         }
     })
     .then(dbPostData => {
-      const drivers = dbPostData.get({plain: true})
-      res.render('signup') 
+        return dbPostData.get({plain: true})
     })
     .catch(err => {
       console.log(err);
       res.status(500).json(err);
     });
    
-    //res.render('signup', { drivers, loggedIn: req.session.loggedIn });  
+    res.render('signup', { driver, loggedIn: req.session.loggedIn });  
 });
 
 module.exports = router;

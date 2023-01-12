@@ -1,13 +1,8 @@
-function CreateDriver() {
-    document.location.replace('/signup');
-}
-
-async function UpdateDriver(id) {
-    document.location.replace(`/api/drivers/${id}`);
-}
-
-async function DeleteDriver(id) {
-    const response = await fetch(`/api/drivers/delete/${id}`, {
+function Editar(id){
+    document.location.replace(`/api/orders/${id}`)
+ }
+ async function Borrar(id){
+    const response = await fetch(`/api/orders/delete/${id}`, {
         method: 'DELETE',
         body: JSON.stringify({
           id: id
@@ -22,4 +17,7 @@ async function DeleteDriver(id) {
       } else {
         alert(response.statusText);
       }
-}
+ }
+ function Create(){
+   document.location.replace('/crear-orden');
+ }

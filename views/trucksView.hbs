@@ -1,0 +1,42 @@
+{{#if trucks.length}}
+<div class="container-fluid mt-4">
+    <div class="row">
+        <div class="col-12 mx-5 justify-content-center" style="height:90vh">
+            <button type="button" class="btn btn-success"  onclick="CreateNewTruck()">Crear Nuevo Camion</button>
+            <table class="table table-dark">
+                <thead>
+                    <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">Marca</th>
+                    <th scope="col">Modelo</th>
+                    <th scope="col">Año</th>
+                    <th scope="col">Vin</th>
+                    <th scope="col">Placa</th>
+                    <th scope="col">Numero</th>
+                    <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each trucks as |truck|}}
+                    <tr>
+                        <td scope="row">{{id}}</th>
+                        <td>{{make}}</td>
+                        <td>{{model}}</td>
+                        <td>{{year}}</td>
+                        <td>{{vin}}</td>
+                        <td>{{plate}}</td>
+                        <td>{{number}}</td>
+                        <td>
+                            <button type="button" class="btn btn-primary" id="{{id}}" onclick="UpdateTruck({{id}})">Editar</button>
+                            <button type="button" class="btn btn-danger" onclick="DeleteTruck({{id}})">Borrar</button>
+                        </td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+                </table>
+        </div>
+    </div>
+</div>
+{{/if}}
+
+<script src="/javascript/truck.js"></script>

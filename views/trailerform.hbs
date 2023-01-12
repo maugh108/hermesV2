@@ -1,19 +1,20 @@
 <form class="trailer-form">
 
   <div class="container">
-
+    {{#if trailer}}
+    <input type="text" name="id" hidden value="{{trailer.id}}">
+    {{/if}}
+    <input type="text" name="make" placeholder="Ingresa la marca" required value="{{trailer.make}}">
     
-    <input type="text" name="make" placeholder="Ingresa la marca" required>
-    
-    <input type="number" name="year" placeholder="Año" required>
+    <input type="number" name="year" placeholder="Año" required value="{{trailer.year}}">
 
-    <input type="text" name="vin" placeholder="Vin" required>
+    <input type="text" name="vin" placeholder="Vin" required value="{{trailer.vin}}">
 
-    <input type="text" name="plate" placeholder="Placa" required>
+    <input type="text" name="plate" placeholder="Placa" required value="{{trailer.plate}}">
 
-    <input type="text" name="number" placeholder="Numero"  required>
+    <input type="text" name="number" placeholder="Numero"  required value="{{trailer.number}}">
 
-    <button class="sign-btn" type="submit">Crear trailer</button>
+    <button class="sign-btn" type="submit"> {{#if trailer}} Actualizar trailer {{else}} Crear trailer {{/if}}</button>
   </div>
 
   <div class="container" style="background-color:#f1f1f1">

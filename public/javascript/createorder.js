@@ -1,6 +1,6 @@
 async function signupFormHandler(e) {
     e.preventDefault();
-
+    const id = e.target.id ? e.target.id.value : null
     const driver_id = e.target.driver.value
     const truck_id = e.target.truck.value
     const trailer_id = e.target.trailer.value
@@ -9,6 +9,7 @@ async function signupFormHandler(e) {
         const response = await fetch('/api/orders', {
           method: 'post',
           body: JSON.stringify({
+            id,
             driver_id: driver_id,
             truck_id: truck_id,
             trailer_id: trailer_id
