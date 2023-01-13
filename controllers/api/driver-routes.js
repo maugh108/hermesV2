@@ -52,7 +52,6 @@ router.delete('/delete/:id', (req,res)=>{
     });
   })
 router.post('/login', (req, res) => {
-    // expects {email: 'lernantino@gmail.com', password: 'password1234'}
     Driver.findOne({
         where: {
             username: req.body.username
@@ -62,8 +61,6 @@ router.post('/login', (req, res) => {
             res.status(400).json({ message: 'No user with that email address!'});
             return;
         }
-        // res.json({ user: dbUserData});
-        // verify user
         const validPassword = dbUserData.checkPassword(req.body.password);
 
         if (!validPassword) {
@@ -71,7 +68,6 @@ router.post('/login', (req, res) => {
             return;
         }
         req.session.save(() => {
-            // declare session variables
             req.session.user_id = dbUserData.id;
             req.session.username = dbUserData.username;
             req.session.loggedIn = true;
